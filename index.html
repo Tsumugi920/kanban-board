@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="看板 · 纯静态看板项目管理单页应用：多看板、拖拽卡片、标签、优先级、子任务、筛选统计与本地存储。">
+  <title>看板 · 任务管理</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">📋 看板</div>
+      <nav class="board-tabs" id="board-tabs" aria-label="看板列表"></nav>
+      <button class="btn btn-primary btn-sm" id="btn-new-board" type="button">＋ 新建看板</button>
+    </header>
+
+    <div class="boardbar" id="boardbar">
+      <h1 class="board-name" id="board-name"></h1>
+      <button class="btn btn-sm btn-ghost" id="btn-rename-board" type="button">重命名</button>
+      <button class="btn btn-sm btn-ghost btn-danger-ghost" id="btn-delete-board" type="button">删除看板</button>
+      <div class="spacer"></div>
+      <button class="btn btn-sm" id="btn-export" type="button" title="导出全部看板为 JSON 文件">导出 JSON</button>
+      <button class="btn btn-sm" id="btn-import" type="button" title="从 JSON 文件恢复数据">导入 JSON</button>
+      <input type="file" id="import-file" accept=".json,application/json" hidden>
+    </div>
+
+    <div class="filterbar" id="filterbar">
+      <input type="search" id="f-q" class="input" placeholder="搜索标题 / 描述 / 子任务…" aria-label="关键词搜索">
+      <select id="f-label" class="input" aria-label="按标签筛选">
+        <option value="">全部标签</option>
+      </select>
+      <select id="f-priority" class="input" aria-label="按优先级筛选">
+        <option value="">全部优先级</option>
+        <option value="high">高优先级</option>
+        <option value="mid">中优先级</option>
+        <option value="low">低优先级</option>
+      </select>
+      <select id="f-overdue" class="input" aria-label="按逾期状态筛选">
+        <option value="">全部期限</option>
+        <option value="over">已逾期</option>
+        <option value="not">未逾期</option>
+      </select>
+      <button class="btn btn-sm" id="f-reset" type="button" hidden>重置筛选</button>
+      <span class="filter-summary" id="filter-summary" hidden></span>
+    </div>
+
+    <section class="statsbar" id="statsbar" aria-label="统计面板"></section>
+
+    <main class="board" id="board" aria-label="看板列"></main>
+
+    <div class="empty" id="empty-boards" hidden>
+      <p>还没有看板，创建一个开始使用吧。</p>
+      <button class="btn btn-primary" id="btn-new-board-2" type="button">＋ 新建看板</button>
+    </div>
+  </div>
+
+  <div id="modal-root"></div>
+  <div class="toast-root" id="toast-root" aria-live="polite"></div>
+  <noscript>本应用需要启用 JavaScript 才能使用。</noscript>
+</body>
+</html>
